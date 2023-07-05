@@ -14,6 +14,12 @@ function custom_theme_setup()
     set_post_thumbnail_size(231, 177, false);
     //第三引数　縦横比を保ったまま小さくする　false
     //第三引数　指定のサイズでトリミングをする　true
+    //メニューの有効化　
+    register_nav_menus(
+        array(
+            'globalnav' => 'グローバルナビゲーション',
+        )
+    );
 }
 add_action('after_setup_theme', 'custom_theme_setup');
 
@@ -32,3 +38,15 @@ function testsite_scripts()
 //どのタイミングで実行するかのアクションフックを追記する
 add_action('wp_enqueue_scripts', 'testsite_scripts');
 //wp_enque_scripts：独自のCSSファイルやJavaScriptファイルを読み込む
+
+add_action('wp_enqueue_scripts', 'testsite_scripts');
+function custom_widget_register()
+{
+    register_sidebar(array(
+        'name' => 'サイドバーウィジェットエリア',
+        'id' => 'sidebar-widget',
+        'description' => 'ブログのサイドバーに表示されます',
+
+    ));
+}
+add_action('widgets_init', 'custom_widget_register');
